@@ -21,11 +21,12 @@ query($latLong: WeatherQuery!) {
 `;
 
 const getWeather = state => {
-  const { temperatureinFahrenheit, description, locationName } = state.weather;
+  const { temperatureinFahrenheit, description, locationName, index } = state.weather;
   return {
     temperatureinFahrenheit,
     description,
-    locationName
+    locationName,
+    index
   };
 };
 
@@ -39,22 +40,27 @@ export default () => {
 
 const Weather = () => {
   const getLocation = useGeolocation();
-  // Default to houston
-  const latLong = {
-    latitude: getLocation.latitude || 29.7604,
-    longitude: getLocation.longitude || -95.3698
-  };
+  
   const dispatch = useDispatch();
-  const { temperatureinFahrenheit, description, locationName } = useSelector(
+  const { temperatureinFahrenheit, description, locationName, index } = useSelector(
     getWeather
   );
+
+  // Default to houston
+  const latLong = {
+      latitude: 29.7604,
+      longitude: -95.3698
+  };
 
   const [result] = useQuery({
     query,
     variables: {
       latLong
-    }
+    },
+    pollInterval:1500,
+    requestPolicy: 'network-only'
   });
+
   const { fetching, data, error } = result;
   useEffect(
     () => {
@@ -70,7 +76,7 @@ const Weather = () => {
   );
 
   if (fetching) return <LinearProgress />;
-
+  
   return (
     <Chip
       label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`}
