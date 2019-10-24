@@ -1,16 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from "recharts";
 
 const getWeather = state => {
-  const { temperatureinFahrenheit, temperatureinCelsius, description, locationName } = state.weather;
+  const {
+    temperatureinFahrenheit,
+    temperatureinCelsius,
+    description,
+    locationName
+  } = state.weather;
   return {
     temperatureinFahrenheit,
     temperatureinCelsius,
     description,
-    locationName,
+    locationName
   };
 };
 
@@ -21,26 +32,31 @@ const Charts = () => {
     getWeather
   );
 
-  const getDataFromProp = (ray) => {
-    const rightNow = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+  const getDataFromProp = ray => {
+    const rightNow =
+      new Date().getHours() +
+      ":" +
+      new Date().getMinutes() +
+      ":" +
+      new Date().getSeconds();
 
     const obj = {
       name: rightNow,
       F: temperatureinFahrenheit,
-      C: temperatureinCelsius, 
-      amt: 0,
-    }
+      C: temperatureinCelsius,
+      amt: 0
+    };
 
     ray.push(obj);
 
-    if(ray.length >= 7){
+    if (ray.length >= 7) {
       ray.shift();
     }
 
     return ray;
-  }
+  };
 
-  ray = getDataFromProp(ray)
+  ray = getDataFromProp(ray);
 
   return (
     <LineChart
@@ -48,7 +64,10 @@ const Charts = () => {
       height={300}
       data={getDataFromProp(ray)}
       margin={{
-        top: 5, right: 30, left: 20, bottom: 5,
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
@@ -60,6 +79,6 @@ const Charts = () => {
       <Line type="monotone" dataKey="F" stroke="#82ca9d" />
     </LineChart>
   );
-}
+};
 
 export default Charts;

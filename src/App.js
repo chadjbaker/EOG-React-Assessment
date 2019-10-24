@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
-import SplitButton from './components/SplitButton'
-import Charts from './components/Charts'
+import SplitButton from "./components/SplitButton";
+import Charts from "./components/Charts";
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -30,13 +30,13 @@ const App = props => (
     <CssBaseline />
     <Provider store={store}>
       <SplitButton />
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <Charts/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <Charts />
     </Provider>
-   </MuiThemeProvider>
-)
+  </MuiThemeProvider>
+);
 
 export default App;

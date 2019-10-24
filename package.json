@@ -2,9 +2,11 @@
   "name": "eog-react-visualization-base",
   "version": "2.0.0",
   "private": true,
+  "homepage": "https://github.com/chadjbaker/EOG-React-Assessment",
   "dependencies": {
     "@material-ui/core": "^4.0.2",
     "@material-ui/icons": "^4.0.1",
+    "gh-pages": "^2.1.1",
     "graphql": "^14.3.1",
     "isomorphic-fetch": "^2.2.1",
     "keyboardjs": "^2.5.1",
@@ -25,6 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
